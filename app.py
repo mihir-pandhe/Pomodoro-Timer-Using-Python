@@ -23,6 +23,18 @@ class PomodoroTimer:
         self.session_label = tk.Label(master, text="Session: 1", font=("Arial", 14))
         self.session_label.pack(pady=5)
 
+        self.task_label = tk.Label(master, text="Tasks", font=("Arial", 14))
+        self.task_label.pack(pady=5)
+
+        self.task_listbox = tk.Listbox(master)
+        self.task_listbox.pack(pady=5)
+
+        self.task_entry = tk.Entry(master)
+        self.task_entry.pack(pady=5)
+
+        self.add_task_button = tk.Button(master, text="Add Task", command=self.add_task)
+        self.add_task_button.pack(pady=5)
+
         self.work_duration = 25 * 60
         self.break_duration = 5 * 60
         self.long_break_duration = 15 * 60
@@ -41,6 +53,12 @@ class PomodoroTimer:
         self.time_var.set("25:00")
         self.sessions = 0
         self.session_label.config(text="Session: 1")
+
+    def add_task(self):
+        task = self.task_entry.get()
+        if task:
+            self.task_listbox.insert(tk.END, task)
+            self.task_entry.delete(0, tk.END)
 
     def update_timer(self):
         if self.timer_running:
